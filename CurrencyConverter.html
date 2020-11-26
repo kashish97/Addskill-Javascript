@@ -1,0 +1,100 @@
+<html>
+<head>
+
+    <script type="text/javascript">
+
+        let currencyMap = new Map();
+
+        currencyMap.set("sourceCurrency","$");
+        currencyMap.set("resultCurrency","INR");
+
+        class CurrencyConverter{
+            _sourceAmount = null;
+
+            constructor(sourceAmount) {
+                this._sourceAmount = sourceAmount;
+            }
+
+            setSourceAmount(sourceAmount){
+                this._sourceAmount = sourceAmount;
+            }
+
+            getSourceAmount(){
+                return this._sourceAmount;
+            }
+
+            get convert(){
+                console.log(this.getSourceAmount());
+                return this.getSourceAmount()/73.82;
+            }
+
+            convertCurrency = ()=>{
+                return this.convert;
+            }
+
+
+        }
+
+
+            function convert(sourceAmount){
+                let result = null;
+                try{
+                    if(isNaN(parseInt(sourceAmount))){
+                        document.getElementById("result").value = "Please enter a valid amount!..";
+                    }
+                    else{
+                        if(!currencyMap.has("number")){
+                            currencyMap.set("number",sourceAmount);
+                        }
+                    }
+
+                }catch (error){
+                    console.log("Error occured"+error);
+                    document.getElementById("result").value = "An error occured..!";
+                }
+                finally {
+                    let currentValue = document.getElementById("result").value;
+                    let displayValue = currentValue+sourceAmount;
+                    document.getElementById("result").value = displayValue;
+                }
+            }
+
+            function calculateConversion(){
+
+                console.log(currencyMap);
+                let num = currencyMap.get("number");
+                var currConverter = new CurrencyConverter(num);
+                var result = null;
+
+                let promise = new Promise((resolve, reject)=>{
+                    setTimeout(()=>{
+                        result = currConverter.convertCurrency();
+                        resolve(result);
+                    },1000);
+                }).then((result)=>{
+                    document.getElementById("result").value = result;
+                });
+
+                currencyMap.clear();
+            }
+
+            function submitButton(){
+                var val = document.getElementById("source").value;
+                convert(val);
+                calculateConversion();
+            }
+
+    </script>
+</head>
+<body>
+<form>
+    <label for="source">Value to be converted</label>
+    <input type="text" id="source" name="source"><br><br>
+    <label for="result">Result</label>
+    <input type="text" id="result" name="lname" disabled><br><br>
+    <input type="button" value="Submit" onclick="submitButton()">
+</form>
+</body>
+
+</form>
+</html>
