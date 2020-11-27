@@ -4,7 +4,6 @@
     <script type="text/javascript">
 
         let currencyMap = new Map();
-
         currencyMap.set("sourceCurrency","$");
         currencyMap.set("resultCurrency","INR");
 
@@ -14,29 +13,26 @@
             constructor(sourceAmount) {
                 this._sourceAmount = sourceAmount;
             }
-
             setSourceAmount(sourceAmount){
                 this._sourceAmount = sourceAmount;
             }
-
             getSourceAmount(){
                 return this._sourceAmount;
             }
 
             get convert(){
-                console.log(this.getSourceAmount());
-                return this.getSourceAmount()/73.82;
+                var sourceCurrency = document.getElementById("sourceCurr").value;
+                var resultCurrency = document.getElementById("resultCurr").value;
+                var input = this.getSourceAmount();
+                return sourceCurrency*input/resultCurrency;
             }
 
             convertCurrency = ()=>{
                 return this.convert;
             }
-
-
         }
 
-
-            function convert(sourceAmount){
+        function convert(sourceAmount){
                 let result = null;
                 try{
                     if(isNaN(parseInt(sourceAmount))){
@@ -84,15 +80,32 @@
                 calculateConversion();
             }
 
+            function selectCurrency(){
+
+            }
+
     </script>
 </head>
 <body>
 <form>
     <label for="source">Value to be converted</label>
-    <input type="text" id="source" name="source"><br><br>
+    <input type="text" id="source" name="source">
+    <select id="sourceCurr">
+        <option value="73.82">USD</option>
+        <option value="1">INR</option>
+        <option value="88.47">EURO</option>
+    </select>
+    <br><br>
     <label for="result">Result</label>
-    <input type="text" id="result" name="lname" disabled><br><br>
+    <input type="text" id="result" name="lname" disabled>
+    <select id="resultCurr">
+        <option value="73.82">USD</option>
+        <option value="1">INR</option>
+        <option value="88.47">EURO</option>
+    </select>
+    <br><br>
     <input type="button" value="Submit" onclick="submitButton()">
+
 </form>
 </body>
 
